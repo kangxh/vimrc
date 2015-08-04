@@ -1,15 +1,22 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "基本设置
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+"禁止生成备份文件
+set nobackup
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 显示相关  
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 color desert  " 设置背景主题 
 
+set number "显示行号
+set showmode
 set cul "高亮光标所在行
 set cuc "高亮光标所在列
+
+set laststatus=2    " 启动显示状态行(1),总是显示状态行(2) 
+set showcmd  "输入的命令显示出来，linux下vim有用  
+
 
 "搜索逐字符高亮
 set hlsearch  "	'hls' 'hlsearch'	高亮显示所有的匹配短语
@@ -82,9 +89,6 @@ hi User8 guifg=#ffffff  guibg=#5b7fbb
 hi User9 guifg=#ffffff  guibg=#810085
 hi User0 guifg=#ffffff  guibg=#094afe
 
-set laststatus=2    " 启动显示状态行(1),总是显示状态行(2) 
-set showcmd  "输入的命令显示出来，linux下vim有用  
-
 " 设置字体，判断系统和参数
 if has("gui_gtk2")
     set guifont=DejaVu\ Sans\ Mono\ 11
@@ -96,11 +100,48 @@ end
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "键盘命令
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 在你的vimrc文件中增加像如下这样格式的key bindings  
+" 格式为：  
+" 模式 <快捷键> 要执行的命令  
+" 模式：看下表，nmap为普通模式,imap为编辑模式  
+" C表示ctrl,A表示Alt,S表示Shift,<CR>表示回车  
+" 
+" 比如下面这行表示在“正常||可视化||运算”模式下，按下Ctrl+W,则执行命令“:tabclose并回车”，就是关闭当前标签页  
+" map <C-w> :tabclose<CR>  
+"   
+" 又比如这行表示在“正常模式”下，按下Ctrl+t,  
+" 则依次执行:browse(打开选择文件对话框） tabnew将选定的文件在新标签页中打开  
+" nmap <C-t> :browse tabnew<CR>  
+"   
+"   
+" 下面这行和上面一样，只是先用Esc从编辑模式切换到正常模式  
+" imap <C-t> <Esc>:browse tabnew<CR>  
 
 " 选中状态下 Ctrl+c 复制
-vmap <C-c> "+y
+vnoremap <C-c> "+y
+" 选中状态下 Ctrl+x 剪贴
+vnoremap <C-x> "+d
 " 插入状态 Ctrl+v 粘贴
-imap <C-v> <Esc>"*pa
+inoremap <C-v> <Esc>"*p
+" 所有状态 Ctrl+v 粘贴
+noremap <C-v> "*p
+" 所有状态 Ctrl+s 保存
+noremap <C-s> :w<CR>
+noremap! <C-s> <Esc>:w<CR>a
+" 所有状态 Ctrl+d 复制当前行
+noremap <C-d> yyp
+noremap! <C-d> <Esc>yypa
 " 全选
-map <C-a> <Esc>ggVG
-
+noremap <C-a> <Esc>ggVG
+"ctrl+z撤销
+noremap <C-z> :u<CR>
+noremap! <C-z> <Esc>:u<CR>a
+" Shift 重做 [count] 次被撤销的更改。
+noremap <S-z>  <Esc><C-r>
+noremap! <S-z> <Esc><C-r>a
+"替换字符串
+noremap <C-r> <Esc>:%s/
+" Alt+= 把当前光标之上或之后的数值或者字母加上 [count]。
+noremap <A-=> <C-a>
+" Alt+- 把当前光标之上或之后的数值或者字母减去 [count]。
+noremap <A--> <C-x>
