@@ -3,11 +3,18 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "禁止生成备份文件
 set nobackup
+" Reload .ideavimrc
+nnoremap <Space>vs :source ~/.vimrc<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 显示相关  
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 color desert  " 设置背景主题 
+
+set langmenu=zh_CN.utf8
+set fileencodings=utf-8,cp936,big5,latin1
+set ambiwidth=double
+let $LANG='en'
 
 set number "显示行号
 set showmode
@@ -21,6 +28,7 @@ set showcmd  "输入的命令显示出来，linux下vim有用
 "搜索逐字符高亮
 set hlsearch  "	'hls' 'hlsearch'	高亮显示所有的匹配短语
 set incsearch "  'is' 'incsearch'	查找短语时显示部分匹配
+set ignorecase smartcase " 如果你采用的模式里至少有一个大写字母，查找就成了大小写敏感的。
 
 "状态行显示的内容  
 " %(...%)     定义一个项目组。
@@ -91,12 +99,24 @@ hi User0 guifg=#ffffff  guibg=#094afe
 
 " 设置字体，判断系统和参数
 if has("gui_gtk2")
-    set guifont=DejaVu\ Sans\ Mono\ 11
+    set guifont=DejaVu\ Sans\ Mono\ 12
 elseif has("gui_macvim")
-    set guifont=DejaVu_Sans_Mono:h11
+    set guifont=DejaVu_Sans_Mono:h12
 elseif has("gui_win32")
-    set guifont=DejaVu_Sans_Mono:h11
+    set guifont=Courier_New:h12:cANSI
 end
+
+" 打开文件后最大化
+if has('win32')    
+	au GUIEnter * simalt ~x
+else    
+	au GUIEnter * call MaximizeWindow()
+endif 
+
+function! MaximizeWindow()    
+	silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
+endfunction
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "键盘命令
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -116,32 +136,41 @@ end
 "   
 " 下面这行和上面一样，只是先用Esc从编辑模式切换到正常模式  
 " imap <C-t> <Esc>:browse tabnew<CR>  
+"
+""在一个映射后不能直接加注释，因为 " 字符也被当作是映射的一部分。你可以用 |" 绕
+"过这一限制。这实际上是开始一个新的空命令。例如:  
+"
+"	:map <Space> W|     " Use spacebar to move forward a word
 
-" 选中状态下 Ctrl+c 复制
-vnoremap <C-c> "+y
-" 选中状态下 Ctrl+x 剪贴
+" Ctrl+c 复制
+vnoremap <C-c> "+y 
+" Ctrl+x     
 vnoremap <C-x> "+d
-" 插入状态 Ctrl+v 粘贴
-inoremap <C-v> <Esc>"*p
-" 所有状态 Ctrl+v 粘贴
+" Ctrl+v 粘贴
 noremap <C-v> "*p
-" 所有状态 Ctrl+s 保存
+inoremap <C-v> <Esc>"*pa
+" Ctrl+s 保存
 noremap <C-s> :w<CR>
-noremap! <C-s> <Esc>:w<CR>a
-" 所有状态 Ctrl+d 复制当前行
+inoremap <C-s> <Esc>:w<CR>a
+" Ctrl+d 复制当前行
 noremap <C-d> yyp
-noremap! <C-d> <Esc>yypa
+inoremap <C-d> <Esc>yypa
 " 全选
 noremap <C-a> <Esc>ggVG
+inoremap <C-a> <Esc>ggVGa
 "ctrl+z撤销
 noremap <C-z> :u<CR>
-noremap! <C-z> <Esc>:u<CR>a
+inoremap <C-z> <Esc>:u<CR>
 " Shift 重做 [count] 次被撤销的更改。
 noremap <S-z>  <Esc><C-r>
-noremap! <S-z> <Esc><C-r>a
+inoremap <S-z> <Esc><C-r>a
 "替换字符串
 noremap <C-r> <Esc>:%s/
 " Alt+= 把当前光标之上或之后的数值或者字母加上 [count]。
 noremap <A-=> <C-a>
+inoremap <A-=> <Esc><C-a>a
 " Alt+- 把当前光标之上或之后的数值或者字母减去 [count]。
 noremap <A--> <C-x>
+inoremap <A--> <Esc><C-x>a
+" clear the search buffer when hitting return
+nnoremap <space><cr> <Esc>/$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$<CR>
