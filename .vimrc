@@ -165,7 +165,7 @@ inoremap <C-z> <Esc>:u<CR>
 noremap <S-z>  <Esc><C-r>
 inoremap <S-z> <Esc><C-r>a
 "替换字符串
-noremap <C-r> <Esc>:%s/
+noremap <C-r> "+y<Esc>:%s/
 " Alt+= 把当前光标之上或之后的数值或者字母加上 [count]。
 noremap <A-=> <C-a>
 inoremap <A-=> <Esc><C-a>a
@@ -174,3 +174,5 @@ noremap <A--> <C-x>
 inoremap <A--> <Esc><C-x>a
 " clear the search buffer when hitting return
 nnoremap <space><cr> <Esc>/$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$<CR>
+" 视图模式时,查询复制当前选中,方便查询
+vnoremap / "+y<Esc>/
