@@ -1,6 +1,5 @@
-cd ..
-del ".vimrc"
-mklink /H ".vimrc" "vimrc/.vimrc"
+del "%USERPROFILE%\.vimrc"
+mklink /H "%USERPROFILE%\.vimrc" ".vimrc"
 
-del ".ideavimrc"
-mklink /H ".ideavimrc" "vimrc/.ideavimrc"
+del "%USERPROFILE%\.ideavimrc"
+mklink /H "%USERPROFILE%\.ideavimrc" ".ideavimrc"
