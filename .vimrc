@@ -1,6 +1,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "基本设置
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let mapleader = ","
 "禁止生成备份文件
 set nobackup
 " Reload .ideavimrc
@@ -159,8 +160,8 @@ inoremap <C-d> <Esc>yypa
 noremap <C-a> <Esc>ggVG
 inoremap <C-a> <Esc>ggVGa
 "ctrl+z撤销
-noremap <C-z> :u<CR>
-inoremap <C-z> <Esc>:u<CR>
+noremap <C-z> u
+inoremap <C-z> <Esc>ua
 " Shift 重做 [count] 次被撤销的更改。
 noremap <S-z>  <Esc><C-r>
 inoremap <S-z> <Esc><C-r>a
@@ -173,6 +174,7 @@ inoremap <A-=> <Esc><C-a>a
 noremap <A--> <C-x>
 inoremap <A--> <Esc><C-x>a
 " clear the search buffer when hitting return
-nnoremap <space><cr> <Esc>/$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$<CR>
+nnoremap <leader>/ <Esc>/$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$<CR>
 " 视图模式时,查询复制当前选中,方便查询
 vnoremap / "+y<Esc>/
+vnoremap ? "+y<Esc>?

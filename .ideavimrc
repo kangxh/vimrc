@@ -8,7 +8,7 @@ nnoremap <Space>vs :source ~\.ideavimrc<CR>
 
 nnoremap <C-p> :action QuickJavaDoc<CR>
 
-cmap / :action Find<CR>
+cmap x $$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 "nnoremap / :action Find<CR>
 "nnoremap n :action FindNext<CR>
 "nnoremap N :action FindPrevious<CR>
