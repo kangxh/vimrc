@@ -7,12 +7,20 @@ let mapleader = ","
 set nobackup
 " Reload .ideavimrc
 nnoremap <Space>vs :source ~/.vimrc<CR>
+"    backspace	specifies what <BS>, CTRL-W, etc. can do in Insert mode
+set bs=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 显示相关  
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 color desert  " 设置背景主题 
 
+" 开启语法高亮功能
+syntax enable
+" 允许用指定语法高亮配色方案替换默认方案
+syntax on
+
+"中文乱码
 set langmenu=zh_CN.utf8
 set fileencodings=utf-8,cp936,big5,latin1
 set ambiwidth=double
@@ -178,5 +186,19 @@ inoremap <A--> <Esc><C-x>a
 " clear the search buffer when hitting return
 nnoremap <leader>/ <Esc>/$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$<CR>
 " 视图模式时,查询复制当前选中,方便查询
-vnoremap / "+y<Esc>/<C-r>"
-vnoremap ? "+y<Esc>?<C-r>"
+vnoremap <C-f> "+y<Esc>/<C-r>"
+noremap <C-f> <Esc>/
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vundle  
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/vimrc/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
